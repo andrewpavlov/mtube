@@ -1,0 +1,12 @@
+<?php
+include_once("utils.php");
+include_once("Constants.php");
+include_once("DbConnection.php");
+include_once("User.php");
+include_once("Video.php");
+include_once("VideoProcessor.php");
+include_once("SearchResultsProvider.php");
+include_once("Account.php");
+include_once("Session.php");
+include_once("Response.php");
+include_once("FormSanitizer.php");
