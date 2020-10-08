@@ -31,6 +31,6 @@ var inputValidationRules = {
   email: (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
   required: (v) => !!(v && v.replace(/ /g, "")) || "Required.",
   isset: (v) => !!v || "Required.",
-  min: (v) => (!v && v.length >= 8) || "Min 8 characters",
+  min: (v) => (v && v.length >= 8) || "Min 8 characters",
   match: (v1, v2) => v1 === v2 || "Password must match",
 };
