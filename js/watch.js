@@ -103,6 +103,14 @@ var WatchVideo = Vue.component("watch-video", {
       videos: null,
       userId: null,
       subscribed: null,
+      comment: {
+        text: "",
+        valid: true,
+        submit: function () {
+
+        }
+      },
+      rules: inputValidationRules,
     };
   },
   template: `
@@ -188,15 +196,29 @@ var WatchVideo = Vue.component("watch-video", {
         <span v-if="video.commentsCount">{{ video.commentsCount }} comment(s)</span>
         <span v-if="!video.commentsCount">No comments yet</span>
       </v-col>
+      <v-col v-if="$store.getters.userId">
+        <v-form class="d-flex flex-row" ref="commentForm" v-model="comment.valid" lazy-validation>
+          <v-avatar class="mr-2">
+            <v-img :src="$store.getters.userInfo.pic"></v-img>
+          </v-avatar>
+          <div class="flex-grow-1">
+            <v-text-field label="Add a public comment"
+              v-model="comment.text"
+            ></v-text-field>
+            <div class="d-flex justify-end">
+              <v-btn small :disabled="!comment.valid" color="primary" @click="comment.submit">Comment</v-btn>
+            </div>
+          <div>
+        </v-form>
+      </v-col>
       <v-col v-if="video" class="px-0">
         <v-list three-line>
           <v-list-item
             v-for="item in video.comments"
             :key="item.id"
-            ripple
           >
-            <v-list-item-avatar size="60">
-              <img :src="item.postedBy.pic">
+            <v-list-item-avatar size="50">
+              <v-img :src="item.postedBy.pic"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title class="font-weight-regular" v-html="item.postedBy.fullName"></v-list-item-title>

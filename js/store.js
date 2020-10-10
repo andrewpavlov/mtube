@@ -5,16 +5,6 @@ var store = new Vuex.Store({
     user: null,
   },
   actions: {
-    fetch: function () {
-      console.log(123123123);
-    },
-    // fetchItem({ commit }, id) {
-    //   // return the Promise via `store.dispatch()` so that we know
-    //   // when the data has been fetched
-    //   return fetchItem(id).then((item) => {
-    //     commit("setItem", { id, item });
-    //   });
-    // },
   },
   mutations: {
     signin: function (state, payload) {
