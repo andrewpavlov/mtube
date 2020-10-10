@@ -32,5 +32,5 @@ if (!empty($do)) {
   $video->incrementViews();
 }
 
-$ret = $video->dump();
+$ret = $video->dump(true);
 Response::ok($ret);

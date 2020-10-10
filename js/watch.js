@@ -74,11 +74,19 @@ var WatchVideo = Vue.component("watch-video", {
           }
         });
     },
+    rateComment: function (v, commentId) {
+
+    },
     subscribe: function () {
       var self = this;
       subscribe(this.video.user.id).then(function (json) {
         if (!json.err) {
           self.subscribed = json.data;
+          if (json.data) {
+            self.video.user.subscriberCount++;
+          } else {
+            self.video.user.subscriberCount--;
+          }
         }
       });
     },
@@ -111,7 +119,7 @@ var WatchVideo = Vue.component("watch-video", {
             {{ video.title }}
           </v-row>
           <v-row class="grey--text text--darken-1 text-subtitle-2">
-            {{ video.views }} view(s)
+            {{ video.views }} view(s), Published on {{ video.timestamp }}
           </v-row>
         </v-col>
         <v-col class="d-flex align-start justify-end" style="max-width: 150px">
@@ -129,9 +137,12 @@ var WatchVideo = Vue.component("watch-video", {
           </span>
         </v-col>
       </v-col>
+      <v-col>
+        <v-divider></v-divider>
+      </v-col>
       <v-col v-if="video" cols="12" class="d-flex flex-row py-0">
         <v-col class="flex-grow-0 pl-0">
-          <v-avatar size=50>
+          <v-avatar size=60>
             <v-img
               :alt="video.user.username"
               :src="video.user.pic"
@@ -148,7 +159,7 @@ var WatchVideo = Vue.component("watch-video", {
             </router-link>
           </v-row>
           <v-row class="grey--text text--darken-1 text-subtitle-2">
-            Published on {{ video.timestamp }}
+            {{ video.user.subscriberCount }} subscriber(s)
           </v-row>
         </v-col>
         <v-col v-if="subscribed !== null" class="d-flex justify-end align-start">
@@ -166,6 +177,49 @@ var WatchVideo = Vue.component("watch-video", {
             Unsubscribe
           </v-btn>
         </v-col>
+      </v-col>
+      <v-col v-if="video" class="ml-8 pl-8" cols=12>
+        {{ video.description }}
+      </v-col>
+      <v-col>
+        <v-divider></v-divider>
+      </v-col>
+      <v-col v-if="video">
+        <span v-if="video.commentsCount">{{ video.commentsCount }} comment(s)</span>
+        <span v-if="!video.commentsCount">No comments yet</span>
+      </v-col>
+      <v-col v-if="video" class="px-0">
+        <v-list three-line>
+          <v-list-item
+            v-for="item in video.comments"
+            :key="item.id"
+            ripple
+          >
+            <v-list-item-avatar size="60">
+              <img :src="item.postedBy.pic">
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-regular" v-html="item.postedBy.fullName"></v-list-item-title>
+              <v-list-item-subtitle class="my-2" v-html="item.body"></v-list-item-subtitle>
+              <v-list-item-action class="mx-0 my-4">
+                <span class="d-flex align-start justify-start">
+                  <span class="mx-1 grey--text">
+                    <a @click="rateComment(1, item.id)">
+                      <v-icon small color="grey" class="mx-1">mdi-thumb-up</v-icon>
+                    </a>
+                    {{ item.likes }}
+                  </span>
+                  <span class="mx-1 grey--text">
+                    <a @click="rateComment(-1, item.id)">
+                      <v-icon small color="grey" class="mx-1">mdi-thumb-down</v-icon>
+                    </a>
+                    {{ item.disLikes }}
+                  </span>
+                </span>
+              </v-list-item-action>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-col>
     </v-col>
     <v-col v-if="videos" style="max-width: 350px;">

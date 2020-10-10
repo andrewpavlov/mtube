@@ -3,6 +3,7 @@ include_once("utils.php");
 include_once("Constants.php");
 include_once("DbConnection.php");
 include_once("User.php");
+include_once("Comment.php");
 include_once("Video.php");
 include_once("VideoProcessor.php");
 include_once("SearchResultsProvider.php");

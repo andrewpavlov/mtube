@@ -260,7 +260,7 @@ class Video
         comments
       WHERE
         videoId=:videoId
-        AND responseTo=0
+        AND isNull(responseTo)
       ORDER BY
         datePosted DESC
     ");
@@ -269,11 +269,10 @@ class Video
 
     $query->execute();
 
-    $comments = array();
-
+    $comments = [];
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
       $comment = new Comment($this->con, $row, $this->userLoggedInObj, $id);
-      array_push($comments, $comment);
+      $comments[] = $comment->dump();
     }
 
     return $comments;
@@ -298,14 +297,14 @@ class Video
     return $ret;
   }
 
-  public function dump()
+  public function dump($comments = false)
   {
-    return Video::dumpOne($this);
+    return Video::dumpOne($this, $comments);
   }
 
-  static public function dumpOne($vidInstance)
+  static public function dumpOne($vidInstance, $comments = false)
   {
-    return [
+    $ret = [
       "id" => $vidInstance->getId(),
       "thumb" => $vidInstance->getThumbnail(),
       "duration" => $vidInstance->getDuration(),
@@ -321,13 +320,18 @@ class Video
       "dislikes" => $vidInstance->getDislikes(),
       "rate" => $vidInstance->getRate(),
     ];
+    if ($comments) {
+      $ret["commentsCount"] = $vidInstance->getNumberOfComments();
+      $ret["comments"] = $vidInstance->getComments();
+    }
+    return $ret;
   }
 
-  static public function dumpMany($vids)
+  static public function dumpMany($vids, $comments = false)
   {
     $ret = [];
     foreach ($vids as $vid) {
-      $ret[] = Video::dumpOne($vid);
+      $ret[] = Video::dumpOne($vid, $comments);
     }
     return $ret;
   }
