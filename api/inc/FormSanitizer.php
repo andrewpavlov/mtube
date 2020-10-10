@@ -12,6 +12,16 @@ class FormSanitizer
     return $inputText;
   }
 
+  public static function text($inputText)
+  {
+    return trim($inputText);
+  }
+
+  public static function guid($inputText)
+  {
+    return self::string($inputText);
+  }
+
   public static function username($inputText)
   {
     $inputText = strip_tags($inputText);

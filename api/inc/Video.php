@@ -271,8 +271,7 @@ class Video
 
     $comments = [];
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-      $comment = new Comment($this->con, $row, $this->userLoggedInObj, $id);
-      $comments[] = $comment->dump();
+      $comments[] = new Comment($this->con, $row, $this->userLoggedInObj, $id);
     }
 
     return $comments;
@@ -321,8 +320,8 @@ class Video
       "rate" => $vidInstance->getRate(),
     ];
     if ($comments) {
-      $ret["commentsCount"] = $vidInstance->getNumberOfComments();
-      $ret["comments"] = $vidInstance->getComments();
+      $ret["submitComment"] = $vidInstance->getNumberOfComments();
+      // $ret["comments"] = $vidInstance->getComments();
     }
     return $ret;
   }

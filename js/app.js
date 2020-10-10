@@ -104,7 +104,9 @@ userInfo().then(function (json) {
   new Vue({
     el: "#app",
     router: router,
+    // moment: vueMoment,
     store: store,
     vuetify: new Vuetify(),
   });
+  Vue.use(vueMoment);
 });

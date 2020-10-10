@@ -20,8 +20,8 @@ if (empty($videoId)) {
 }
 
 
-$title = FormSanitizer::string($_POST["title"]);
-$description = FormSanitizer::string($_POST["description"]);
+$title = FormSanitizer::text($_POST["title"]);
+$description = FormSanitizer::text($_POST["description"]);
 $privacy = intval($_POST["privacy"]) === 1 ? 1 : 0;
 $category = intval($_POST["category"]);
 
