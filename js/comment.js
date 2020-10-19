@@ -110,7 +110,12 @@ Vue.component("video-comments", {
       <span v-if="!commentsCount">No comments yet</span>
     </v-col>
     <v-col v-if="$store.getters.userId">
-      <v-form class="d-flex flex-row" ref="form" v-model="valid" lazy-validation>
+      <v-form class="d-flex flex-row"
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submit()"
+        lazy-validation
+      >
         <v-avatar class="mr-2">
           <v-img :src="$store.getters.userInfo.pic"></v-img>
         </v-avatar>
@@ -121,7 +126,7 @@ Vue.component("video-comments", {
             required
           ></v-text-field>
           <div class="d-flex justify-end">
-            <v-btn small :disabled="!valid" color="primary" @click="submit()">Comment</v-btn>
+            <v-btn type="submit" small :disabled="!valid" color="primary">Comment</v-btn>
           </div>
         </div>
       </v-form>

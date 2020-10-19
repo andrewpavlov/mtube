@@ -95,7 +95,11 @@ var ProfileSetting = Vue.component("profile-settings", {
       <v-tab-item>
         <v-card class="px-4">
           <v-card-text>
-            <v-form ref="changeDetails" v-model="form.valid1" lazy-validation>
+            <v-form ref="changeDetails"
+              v-model="form.valid1"
+              @submit.prevent="changeDetails"
+              lazy-validation
+            >
               <v-row>
                 <v-col cols="12">
                   <v-text-field label="First Name"
@@ -120,7 +124,10 @@ var ProfileSetting = Vue.component("profile-settings", {
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col class="d-flex justify-end" cols="12">
-                  <v-btn :disabled="!form.valid1" color="primary" @click="changeDetails">Update</v-btn>
+                  <v-btn color="primary"
+                    type="submit"
+                    :disabled="!form.valid1"
+                  >Update</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -131,7 +138,11 @@ var ProfileSetting = Vue.component("profile-settings", {
       <v-tab-item>
         <v-card class="px-4">
           <v-card-text>
-            <v-form ref="changePassword" v-model="form.valid2" lazy-validation>
+            <v-form ref="changePassword"
+              v-model="form.valid2"
+              @submit.prevent="changePassword"
+              lazy-validation
+            >
               <v-row>
                 <v-col cols="12">
                   <v-text-field label="Current password"
@@ -159,8 +170,8 @@ var ProfileSetting = Vue.component("profile-settings", {
                 <v-col cols="12">
                   <v-text-field label="Confirm password"
                     hint="Confirm new password"
-                    v-model="password.confirmPassword"
-                    :rules="[rules.required, rules.match(password.confirmPassword, password.newPassword)]"
+                    v-model="password.verifyPassword"
+                    :rules="[rules.required, rules.match(password.verifyPassword, password.newPassword)]"
                     :type="form.show3 ? 'text' : 'password'"
                     :append-icon="form.show3 ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="form.show3 = !form.show3"
@@ -168,7 +179,10 @@ var ProfileSetting = Vue.component("profile-settings", {
                   </v-text-field>
                 </v-col>
                 <v-col class="d-flex justify-end">
-                  <v-btn :disabled="!form.valid2" color="primary" @click="update('changePassword')">Update</v-btn>
+                  <v-btn color="primary"
+                    type="submit"
+                    :disabled="!form.valid2"
+                  >Update</v-btn>
                 </v-col>
               </v-row>
             </v-form>

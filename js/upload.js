@@ -46,7 +46,12 @@ var Upload = Vue.component("profile", {
         Upload new video
       </v-card-title>
       <v-card-text>
-        <v-form ref="uploadForm" v-model="valid" enctype="multipart/form-data" lazy-validation>
+        <v-form ref="uploadForm"
+          v-model="valid"
+          @submit.prevent="upload"
+          enctype="multipart/form-data"
+          lazy-validation
+        >
           <v-col cols="12">
             <v-file-input
               v-model="file"
@@ -59,7 +64,7 @@ var Upload = Vue.component("profile", {
             ></v-file-input>
           </v-col>
           <v-col cols="12" class="d-flex justify-end">
-            <v-btn :disabled="!valid || uploading" color="primary" @click="upload">Upload</v-btn>
+            <v-btn type="submit" :disabled="!valid || uploading" color="primary">Upload</v-btn>
           </v-col>
         </v-form>
       </v-card-text>

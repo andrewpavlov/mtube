@@ -90,7 +90,11 @@ var Login = Vue.component("login-form", {
       <v-tab-item>
         <v-card class="px-4">
           <v-card-text>
-            <v-form ref="loginForm" v-model="valid" lazy-validation>
+            <v-form ref="loginForm"
+              v-model="valid"
+              @submit.prevent="login"
+              lazy-validation
+            >
               <v-row>
                 <v-col cols="12">
                   <v-text-field label="E-mail"
@@ -112,7 +116,7 @@ var Login = Vue.component("login-form", {
                 <v-col class="d-flex" cols="12" sm="6" xsm="12">
                 </v-col>
                 <v-col class="d-flex justify-end">
-                  <v-btn large :disabled="!valid" color="primary" @click="login">Sign in</v-btn>
+                  <v-btn type="submit" large :disabled="!valid" color="primary">Sign in</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -122,7 +126,11 @@ var Login = Vue.component("login-form", {
       <v-tab-item>
         <v-card class="px-4">
           <v-card-text>
-            <v-form ref="registerForm" v-model="valid" lazy-validation>
+            <v-form ref="registerForm"
+              v-model="valid"
+              @submit.prevent="register"
+              lazy-validation
+            >
               <v-row>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field label="First Name"
@@ -182,7 +190,7 @@ var Login = Vue.component("login-form", {
                   ></v-text-field>
                 </v-col>
                 <v-col class="d-flex justify-end">
-                  <v-btn large :disabled="!valid" color="primary" @click="register">Register</v-btn>
+                  <v-btn type="submit" large :disabled="!valid" color="primary">Register</v-btn>
                 </v-col>
               </v-row>
             </v-form>

@@ -107,7 +107,12 @@ var EditVideo = Vue.component("edit-video", {
         Edit video
       </v-card-title>
       <v-card-text>
-        <v-form v-if="video" ref="form" v-model="valid" lazy-validation>
+        <v-form v-if="video"
+          ref="form"
+          v-model="valid"
+          @submit.prevent="submit"
+          lazy-validation
+        >
           <v-col cols="12">
             <v-text-field
               label="Title"
@@ -146,13 +151,11 @@ var EditVideo = Vue.component("edit-video", {
               ></v-radio>
             </v-radio-group>
           </v-col>
+          <v-col cols="12" class="d-flex justify-end">
+            <v-btn type="submit" :disabled="!valid || loading" color="primary">Save</v-btn>
+          </v-col>
         </v-form>
       </v-card-text>
-      <v-card-actions>
-        <v-col cols="12" class="d-flex justify-end">
-          <v-btn :disabled="!valid || loading" color="primary" @click="submit">Save</v-btn>
-        </v-col>
-      </v-card-actions>
     </v-card>
 
     <v-snackbar
