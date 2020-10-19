@@ -37,6 +37,7 @@ var ProfileSetting = Vue.component("profile-settings", {
       }
     },
     submit: function (formData) {
+      var self = this;
       fetch("api/profile.php", {
         method: "POST",
         credentials: "same-origin",
@@ -50,7 +51,7 @@ var ProfileSetting = Vue.component("profile-settings", {
             alert(json.data);
           } else {
             console.debug("profile update", json);
-            this.form.okbar = true;
+            self.form.okbar = true;
           }
         });
     },
